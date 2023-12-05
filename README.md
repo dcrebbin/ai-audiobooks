@@ -1,4 +1,4 @@
-# ElevenLabs Podcastor
+# ElevenLabs Podcaster
 
 _Turn text into audio chunks and merge them into a podcast file for on the go listening!_
 
