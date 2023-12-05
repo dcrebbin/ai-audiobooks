@@ -1,0 +1,3 @@
+.env
+/output/chunks/*.mp3
+/output/*.mp3

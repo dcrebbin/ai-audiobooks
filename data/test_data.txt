@@ -1,0 +1,13 @@
+a computer scientist or mathematician. With computers having become prevalent in
+our modern lives, however, the term is no longer esoteric. If you look around your
+home, you’ll ûnd algorithms running in the most mundane places: your microwave
+oven, your washing machine, and, of course, your computer. You ask algorithms
+to make recommendations to you: what music you might like or what route to
+take when driving. Our society, for better or for worse, asks algorithms to suggest
+sentences for convicted criminals. You even rely on algorithms to keep you alive,
+or at least not to kill you: the control systems in your car or in medical equipment. 1
+The word <algorithm= appears somewhere in the news seemingly every day.
+Therefore, it behooves you to understand algorithms not just as a student or
+practitioner of computer science, but as a citizen of the world. Once you understand
+algorithms, you can educate others about what algorithms are, how they operate,
+and what their limitations are.
