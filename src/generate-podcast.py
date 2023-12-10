@@ -1,5 +1,6 @@
 import os
 import requests
+import re
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -69,15 +70,26 @@ async def generate_voice(text, index):
 # Main function
 
 async def main():
-    # Open text file and split into sentences
-    with open('./data/test_data.txt', 'r') as file:
-        text_array = file.read().split(".")
+    # Open text file with UTF-8 encoding
+    with open('./data/test_data.txt', 'r', encoding='utf-8') as file:
+        # Use regular expression to keep periods with sentences
+        text_array = re.split(r'(?<=\.)\s+', file.read().strip())
 
-        # Iterate sentences and generate audio for each
-        for index, text in enumerate(text_array):
-            await generate_voice(text, index)
-            print(text)
+        # Check if there is an uneven number of sentences
+        if len(text_array) % 2 != 0:
+            # Add an empty string to make it even
+            text_array.append("")
+
+        sentences_to_process = list(zip(text_array[0::2], text_array[1::2]))
+
+        # Iterate sentence pairs and generate audio for each pair
+        for index, (first_sentence, second_sentence) in enumerate(sentences_to_process):
+            combined_sentence = first_sentence
+            combined_sentence += ' ' + second_sentence if second_sentence else ''
+            await generate_voice(combined_sentence, index)
+            print(combined_sentence)
     print("Finished generation! Don't forget to run python ./src/merge-podcast.py to combine all audio files 🤠")
+
 
 if __name__ == "__main__":
     import asyncio
