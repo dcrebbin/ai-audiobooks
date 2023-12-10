@@ -1,20 +1,25 @@
-from pydub import AudioSegment
 import os
+import subprocess
 
-# Get all audio files from the chunks folder
-audio_files = os.listdir(os.path.join(
-    os.path.dirname(__name__), "output/chunks/"))
+# Directory containing the MP3 files
+directory = './output/chunks/'
 
-# Initialize combined audio file
-combined = AudioSegment.empty()
+# Check if filelist.txt exists and clear it
+filelist_path = os.path.join(directory, 'filelist.txt')
+if os.path.exists(filelist_path):
+    os.remove(filelist_path)
 
-# Combine all audio files
-for file in audio_files:
-    if file.endswith(".mp3"):
-        sound = AudioSegment.from_mp3(os.path.join(
-            os.path.dirname(__name__), "output/chunks/"+file))
-        combined = combined + sound
+# Fetch all mp3 files and sort them numerically
+files = [f for f in os.listdir(directory) if f.endswith('.mp3')]
+files.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
 
-# Export combined audio file
-combined.export(os.path.join(
-    os.path.dirname(__name__), "output/output.mp3"), format="mp3")
+# Write the sorted file names to filelist.txt
+with open(filelist_path, 'w') as file:
+    for f in files:
+        file.write(f"file '{f}'\n")
+
+# Run FFmpeg command
+output_file = os.path.join('./output/', 'output.mp3')
+ffmpeg_command = f'ffmpeg -f concat -safe 0 -i "{filelist_path}" -c copy "{output_file}"'
+subprocess.run(ffmpeg_command)
+
