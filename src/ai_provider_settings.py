@@ -21,7 +21,7 @@ AI_PROVIDER_SETTINGS = {
     "elevenlabs": {
         "url": ELEVEN_LABS_ENDPOINT,
         "auth_type": "xi-api-key",
-        "auth_value": os.getenv("ELEVEN_LABS_API_KEY"),
+        "auth_value": os.getenv("ELEVEN_LABS_API_KEY",""),
         "text_input_name": "text",
         "payload": {
             "model_id": ELEVEN_LABS_MODEL_ID,
@@ -35,7 +35,7 @@ AI_PROVIDER_SETTINGS = {
     "openai": {
         "url": OPEN_AI_ENDPOINT,
         "auth_type": "Authorization",
-        "auth_value": "Bearer " + os.getenv("OPEN_AI_API_KEY"),
+        "auth_value": "Bearer " + os.getenv("OPEN_AI_API_KEY",""),
         "text_input_name": "input",
         "payload": {
             "model": OPEN_AI_MODEL_ID,
@@ -46,7 +46,7 @@ AI_PROVIDER_SETTINGS = {
     "unrealspeech": {
         "url": UNREAL_SPEECH_ENDPOINT,
         "auth_type": "Authorization",
-        "auth_value": "Bearer " + os.getenv("UNREAL_SPEECH_API_KEY"),
+        "auth_value": "Bearer " + os.getenv("UNREAL_SPEECH_API_KEY",""),
         "text_input_name": "Text",
         "payload": {
             #  This payload isn't a bug, it uses title case for the property names and the ints are strings
@@ -60,13 +60,11 @@ AI_PROVIDER_SETTINGS = {
     }
 }
 
-
 def get_payload(ai_provider, text):
     ai_config = AI_PROVIDER_SETTINGS.get(ai_provider)
     payload = ai_config.get("payload")
     payload[ai_config.get("text_input_name")] = text
     return payload
-
 
 def get_auth(ai_provider):
     ai_config = AI_PROVIDER_SETTINGS.get(ai_provider)
