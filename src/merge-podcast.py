@@ -21,5 +21,5 @@ with open(filelist_path, 'w') as file:
 # Run FFmpeg command
 output_file = os.path.join('./output/', 'output.mp3')
 ffmpeg_command = f'ffmpeg -f concat -safe 0 -i "{filelist_path}" -c copy "{output_file}"'
-subprocess.run(ffmpeg_command)
+subprocess.run(ffmpeg_command,shell=True)
 
